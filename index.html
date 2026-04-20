@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ของดีจังหวัดนครนายก</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Prompt:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">🌿</div>
+      <h2>ของดีนครนายก</h2>
+      <p class="brand-sub">สินค้าชุมชนคุณภาพ</p>
+    </div>
+    <nav>
+      <a href="#" class="nav-link active" onclick="showPage('home', this)">
+        <span class="nav-icon">🏠</span><span>หน้าแรก</span>
+      </a>
+      <a href="#" class="nav-link" onclick="showPage('cart', this)">
+        <span class="nav-icon">🛒</span><span>ตะกร้า</span>
+        <span class="nav-badge" id="cart-count-badge">0</span>
+      </a>
+      <a href="#" class="nav-link" onclick="showPage('notifications', this)">
+        <span class="nav-icon">🔔</span><span>การแจ้งเตือน</span>
+        <span class="nav-badge notif-badge">3</span>
+      </a>
+      <a href="#" class="nav-link" onclick="showPage('profile', this)">
+        <span class="nav-icon">⚙️</span><span>โปรไฟล์</span>
+      </a>
+      <a href="#" class="nav-link" onclick="showPage('product', this)">
+        <span class="nav-icon">📦</span><span>สินค้า</span>
+      </a>
+      <a href="#" class="nav-link" onclick="showPage('map', this)">
+        <span class="nav-icon">🗺️</span><span>แผนที่</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-mini">
+        <div class="user-mini-avatar">ผ</div>
+        <div>
+          <div class="user-mini-name">ผู้ใช้ทดสอบ</div>
+          <div class="user-mini-role">สมาชิก</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="content">
+
+    <section id="home" class="page active">
+
+      <div class="hero">
+        <div class="hero-text">
+          <div class="hero-tag">🌱 ผลิตภัณฑ์ชุมชน</div>
+          <h1>สินค้าชุมชนคุณภาพดี<br>ของดีจังหวัดนครนายก</h1>
+          <p>รวมสินค้าชุมชนจากทุกอำเภอ สด ใหม่ ตรงจากมือเกษตรกร</p>
+          <div class="stats">
+            <div class="stat-pill">
+              <span class="stat-num">100+</span>
+              <span class="stat-lbl">สินค้า</span>
+            </div>
+            <div class="stat-pill">
+              <span class="stat-num">50+</span>
+              <span class="stat-lbl">ผู้ขาย</span>
+            </div>
+            <div class="stat-pill">
+              <span class="stat-num">4</span>
+              <span class="stat-lbl">อำเภอ</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-deco">🌾</div>
+      </div>
+
+      <div class="search-bar">
+        <div class="search-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="search-input" placeholder="ค้นหาสินค้า..." onkeyup="filterProducts()">
+        </div>
+        <select id="district-select" onchange="setDistrict(this.value)">
+          <option>ทุกอำเภอ</option>
+          <option>เมืองนครนายก</option>
+          <option>บ้านนา</option>
+          <option>องครักษ์</option>
+          <option>ปากพลี</option>
+        </select>
+      </div>
+
+      <div class="categories">
+        <button class="cat-btn active-cat" onclick="setCategory('ทั้งหมด', this)">ทั้งหมด</button>
+        <button class="cat-btn" onclick="setCategory('ผลไม้', this)">🍍 ผลไม้</button>
+        <button class="cat-btn" onclick="setCategory('อาหารแปรรูป', this)">🍯 อาหารแปรรูป</button>
+        <button class="cat-btn" onclick="setCategory('ของฝาก', this)">🎁 ของฝาก</button>
+        <button class="cat-btn" onclick="setCategory('สมุนไพร', this)">🌿 สมุนไพร</button>
+        <button class="cat-btn" onclick="setCategory('หัตถกรรม', this)">🧺 หัตถกรรม</button>
+      </div>
+
+      <div class="products" id="product-grid">
+
+        <div class="product-card" data-category="ผลไม้" data-district="เมืองนครนายก">
+          <div class="card-badge">ผลไม้</div>
+          <div class="product-img-wrap">
+            <img src="มะยมชิด.png" alt="มะยมชิด" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🍈</div>'">
+          </div>
+          <div class="card-body">
+            <h3>มะยมชิด</h3>
+            <p class="desc">มะยมชิดหวานส่ง เนื้อแน่น สดจากสวน อำเภอเมืองนครนายก</p>
+            <p class="location">📍 เมืองนครนายก</p>
+            <p class="rating">⭐ 3.8 <span class="review-count">(24 รีวิว)</span></p>
+            <div class="card-footer">
+              <p class="price">฿200 <span class="points">+12 แต้ม</span></p>
+              <button onclick="addToCart('มะยมชิด', 200, 'มะยมชิด.png')">+ ตะกร้า</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="ผลไม้" data-district="ปากพลี">
+          <div class="card-badge">ผลไม้</div>
+          <div class="product-img-wrap">
+            <img src="กระท้อน.png" alt="กระท้อน" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🍑</div>'">
+          </div>
+          <div class="card-body">
+            <h3>กระท้อน</h3>
+            <p class="desc">กระท้อนคัดพิเศษ หวานละมุนทุกลูก</p>
+            <p class="location">📍 ปากพลี</p>
+            <p class="rating">⭐ 3.6 <span class="review-count">(24 รีวิว)</span></p>
+            <div class="card-footer">
+              <p class="price">฿80 <span class="points">+12 แต้ม</span></p>
+              <button onclick="addToCart('กระท้อน', 80, 'กระท้อน.png')">+ ตะกร้า</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="ผลไม้" data-district="บ้านนา">
+          <div class="card-badge">ผลไม้</div>
+          <div class="product-img-wrap">
+            <img src="กล้วยน้ำว้า.png" alt="กล้วยน้ำว้า" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🍌</div>'">
+          </div>
+          <div class="card-body">
+            <h3>กล้วยน้ำว้า</h3>
+            <p class="desc">กล้วยน้ำว้าคัดพิเศษ หวานละมุนทุกลูก</p>
+            <p class="location">📍 บ้านนา</p>
+            <p class="rating">⭐ 3.5 <span class="review-count">(24 รีวิว)</span></p>
+            <div class="card-footer">
+              <p class="price">฿60 <span class="points">+12 แต้ม</span></p>
+              <button onclick="addToCart('กล้วยน้ำว้า', 60, 'กล้วยน้ำว้า.png')">+ ตะกร้า</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="ผลไม้" data-district="องครักษ์">
+          <div class="card-badge">ผลไม้</div>
+          <div class="product-img-wrap">
+            <img src="ฝรั่ง.png" alt="ฝรั่ง" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🍐</div>'">
+          </div>
+          <div class="card-body">
+            <h3>ฝรั่ง</h3>
+            <p class="desc">ฝรั่งหวานกรอบ อร่อยเต็มคำ สดจากสวน</p>
+            <p class="location">📍 องครักษ์</p>
+            <p class="rating">⭐ 3.6 <span class="review-count">(24 รีวิว)</span></p>
+            <div class="card-footer">
+              <p class="price">฿80 <span class="points">+12 แต้ม</span></p>
+              <button onclick="addToCart('ฝรั่ง', 80, 'ฝรั่ง.png')">+ ตะกร้า</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="อาหารแปรรูป" data-district="เมืองนครนายก">
+          <div class="card-badge badge-orange">แปรรูป</div>
+          <div class="product-img-wrap">
+            <img src="มะยงชิดลอยแก้ว.png" alt="มะยงชิดลอยแก้ว" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🫙</div>'">
+          </div>
+          <div class="card-body">
+            <h3>มะยงชิดลอยแก้ว</h3>
+            <p class="desc">หวานฉ่ำ เย็นชื่นใจ สดใสทุกคำ</p>
+            <p class="location">📍 เมืองนครนายก</p>
+            <p class="rating">⭐ 3.7 <span class="review-count">(15 รีวิว)</span></p>
+            <div class="card-footer">
+              <p class="price">฿50 <span class="points">+8 แต้ม</span></p>
+              <button onclick="addToCart('มะยงชิดลอยแก้ว', 50, 'มะยงชิดลอยแก้ว.png')">+ ตะกร้า</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="อาหารแปรรูป" data-district="ปากพลี">
+          <div class="card-badge badge-orange">แปรรูป</div>
+          <div class="product-img-wrap">
+            <img src="กระท้อนแช่อิ่ม.png" alt="กระท้อนแช่อิ่ม" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🍬</div>'">
+          </div>
+          <div class="card-body">
+            <h3>กระท้อนแช่อิ่ม</h3>
+            <p class="desc">กระท้อนแช่อิ่มสูตรเด็ด เคี้ยวเพลินเกินห้ามใจ</p>
+            <p class="location">📍 ปากพลี</p>
+            <p class="rating">⭐ 3.6 <span class="review-count">(15 รีวิว)</span></p>
+            <div class="card-footer">
+              <p class="price">฿70 <span class="points">+8 แต้ม</span></p>
+              <button onclick="addToCart('กระท้อนแช่อิ่ม', 70, 'กระท้อนแช่อิ่ม.png')">+ ตะกร้า</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="อาหารแปรรูป" data-district="บ้านนา">
+          <div class="card-badge badge-orange">แปรรูป</div>
+          <div class="product-img-wrap">
+            <img src="กล้วยฉาบ.png" alt="กล้วยฉาบ" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🍟</div>'">
+          </div>
+          <div class="card-body">
+            <h3>กล้วยฉาบ</h3>
+            <p class="desc">ของกินเล่นสุดฟิน กินแล้วหยุดไม่ได้</p>
+            <p class="location">📍 บ้านนา</p>
+            <p class="rating">⭐ 3.9 <span class="review-count">(15 รีวิว)</span></p>
+            <div class="card-footer">
+              <p class="price">฿70 <span class="points">+8 แต้ม</span></p>
+              <button onclick="addToCart('กล้วยฉาบ', 70, 'กล้วยฉาบ.png')">+ ตะกร้า</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="อาหารแปรรูป" data-district="องครักษ์">
+          <div class="card-badge badge-orange">แปรรูป</div>
+          <div class="product-img-wrap">
+            <img src="ฝรั่งแช่บ๊วย.png" alt="ฝรั่งแช่บ๊วย" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🍡</div>'">
+          </div>
+          <div class="card-body">
+            <h3>ฝรั่งแช่บ๊วย</h3>
+            <p class="desc">ฝรั่งคัดพิเศษ แช่บ๊วยสูตรเด็ด อร่อยถึงใจ</p>
+            <p class="location">📍 องครักษ์</p>
+            <p class="rating">⭐ 3.7 <span class="review-count">(15 รีวิว)</span></p>
+            <div class="card-footer">
+              <p class="price">฿60 <span class="points">+8 แต้ม</span></p>
+              <button onclick="addToCart('ฝรั่งแช่บ๊วย', 60, 'ฝรั่งแช่บ๊วย.png')">+ ตะกร้า</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="ของฝาก" data-district="เมืองนครนายก">
+          <div class="card-badge badge-purple">ของฝาก</div>
+          <div class="product-img-wrap">
+            <img src="ขนมเปี๊ยะไดฟุกุ.png" alt="ขนมเปี๊ยะไดฟุกุ" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🍡</div>'">
+          </div>
+          <div class="card-body">
+            <h3>ขนมเปี๊ยะไดฟุกุ</h3>
+            <p class="desc">นุ่ม หอม หวานละมุน อร่อยเต็มคำ</p>
+            <p class="location">📍 เมืองนครนายก</p>
+            <p class="rating">⭐ 4.1 <span class="review-count">(10 รีวิว)</span></p>
+            <div class="card-footer">
+              <p class="price">฿180 <span class="points">+20 แต้ม</span></p>
+              <button onclick="addToCart('ขนมเปี๊ยะไดฟุกุ', 180, 'ขนมเปี๊ยะไดฟุกุ.png')">+ ตะกร้า</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="ของฝาก" data-district="ปากพลี">
+          <div class="card-badge badge-purple">ของฝาก</div>
+          <div class="product-img-wrap">
+            <img src="ทุเรียน.png" alt="ทุเรียน" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🍈</div>'">
+          </div>
+          <div class="card-body">
+            <h3>ทุเรียน</h3>
+            <p class="desc">นุ่ม หอม หวานละมุน อร่อยเต็มคำ</p>
+            <p class="location">📍 ปากพลี</p>
+            <p class="rating">⭐ 4.2 <span class="review-count">(10 รีวิว)</span></p>
+            <div class="card-footer">
+              <p class="price">฿250 <span class="points">+20 แต้ม</span></p>
+              <button onclick="addToCart('ทุเรียน', 250, 'ทุเรียน.png')">+ ตะกร้า</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="ของฝาก" data-district="บ้านนา">
+          <div class="card-badge badge-purple">ของฝาก</div>
+          <div class="product-img-wrap">
+            <img src="ไข่เค็ม.png" alt="ไข่เค็ม" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🥚</div>'">
+          </div>
+          <div class="card-body">
+            <h3>ไข่เค็ม</h3>
+            <p class="desc">ไข่เค็มธรรมชาติจากชุมชน เหมาะเป็นของฝาก</p>
+            <p class="location">📍 บ้านนา</p>
+            <p class="rating">⭐ 3.8 <span class="review-count">(10 รีวิว)</span></p>
+            <div class="card-footer">
+              <p class="price">฿150 <span class="points">+20 แต้ม</span></p>
+              <button onclick="addToCart('ไข่เค็ม', 150, 'ไข่เค็ม.png')">+ ตะกร้า</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="สมุนไพร" data-district="เมืองนครนายก">
+          <div class="card-badge badge-teal">สมุนไพร</div>
+          <div class="product-img-wrap">
+            <img src="ปลาทอดสมุนไพร.png" alt="ปลาทอดสมุนไพร" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🐟</div>'">
+          </div>
+          <div class="card-body">
+            <h3>ปลาทอดสมุนไพร</h3>
+            <p class="desc">ปลาทอดร้อนๆ คู่สมุนไพรไทย อร่อยลงตัว</p>
+            <p class="location">📍 เมืองนครนายก</p>
+            <p class="rating">⭐ 3.9 <span class="review-count">(30 รีวิว)</span></p>
+            <div class="card-footer">
+              <p class="price">฿120 <span class="points">+9 แต้ม</span></p>
+              <button onclick="addToCart('ปลาทอดสมุนไพร', 120, 'ปลาทอดสมุนไพร.png')">+ ตะกร้า</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="สมุนไพร" data-district="ปากพลี">
+          <div class="card-badge badge-teal">สมุนไพร</div>
+          <div class="product-img-wrap">
+            <img src="พืชพื้นบ้าน.png" alt="พืชพื้นบ้าน" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🌿</div>'">
+          </div>
+          <div class="card-body">
+            <h3>พืชพื้นบ้าน</h3>
+            <p class="desc">พืชพื้นบ้าน คุณค่าจากธรรมชาติ</p>
+            <p class="location">📍 ปากพลี</p>
+            <p class="rating">⭐ 3.6 <span class="review-count">(10 รีวิว)</span></p>
+            <div class="card-footer">
+              <p class="price">฿150 <span class="points">+20 แต้ม</span></p>
+              <button onclick="addToCart('พืชพื้นบ้าน', 150, 'พืชพื้นบ้าน.png')">+ ตะกร้า</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="สมุนไพร" data-district="เมืองนครนายก">
+          <div class="card-badge badge-teal">สมุนไพร</div>
+          <div class="product-img-wrap">
+            <img src="กุยช่าย.png" alt="กุยช่าย" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🌿</div>'">
+          </div>
+          <div class="card-body">
+            <h3>กุยช่าย</h3>
+            <p class="desc">กุยช่ายสดหอม ถั่วเขียวล้น ๆ จากนครนายก</p>
+            <p class="location">📍 เมืองนครนายก</p>
+            <p class="rating">⭐ 3.8 <span class="review-count">(19 รีวิว)</span></p>
+            <div class="card-footer">
+              <p class="price">฿60 <span class="points">+5 แต้ม</span></p>
+              <button onclick="addToCart('กุยช่าย', 60, 'กุยช่าย.png')">+ ตะกร้า</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="หัตถกรรม" data-district="ปากพลี">
+          <div class="card-badge badge-brown">หัตถกรรม</div>
+          <div class="product-img-wrap">
+            <img src="งานจักสานพื้นบ้าน.png" alt="งานจักสานพื้นบ้าน" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🧺</div>'">
+          </div>
+          <div class="card-body">
+            <h3>งานจักสานพื้นบ้าน</h3>
+            <p class="desc">งานจักสานพื้นบ้าน ทำจากวัสดุธรรมชาติ</p>
+            <p class="location">📍 ปากพลี</p>
+            <p class="rating">⭐ 4.0 <span class="review-count">(12 รีวิว)</span></p>
+            <div class="card-footer">
+              <p class="price">฿150 <span class="points">+15 แต้ม</span></p>
+              <button onclick="addToCart('งานจักสานพื้นบ้าน', 150, 'งานจักสานพื้นบ้าน.png')">+ ตะกร้า</button>
+            </div>
+          </div>
+        </div>
+
+      </div></section>
+
+    <section id="cart" class="page">
+      <div class="page-header">
+        <h2>🛒 ตะกร้าสินค้า</h2>
+        <p>สินค้าที่คุณเลือกไว้</p>
+      </div>
+      <div class="cart-container">
+        <div id="cart-items-container">
+          </div>
+        <div class="cart-summary" id="cart-summary-section">
+          <div class="total-price">ยอดรวม: <span id="total">0</span> บาท</div>
+          <button class="btn-checkout" onclick="checkout()">💳 ชำระเงินเลย</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== หน้าการแจ้งเตือน ========== -->
+    <section id="notifications" class="page">
+      <div class="page-header">
+        <h2>🔔 การแจ้งเตือน</h2>
+        <p>ข้อความและการแจ้งเตือนทั้งหมด</p>
+      </div>
+      <div class="notif-container" id="notifications-container">
+        <!-- การแจ้งเตือนจะถูก render โดย JavaScript -->
+      </div>
+    </section>
+
+    <section id="product" class="page">
+      <div class="page-header">
+        <h2>📦 จัดการสินค้า</h2>
+        <p>สินค้าที่คุณโพสต์ขาย</p>
+      </div>
+
+      <div class="product-auth-message" id="product-auth-message">
+        <p>โปรดเข้าสู่ระบบก่อนเพื่อโพสต์หรือจัดการสินค้า</p>
+      </div>
+
+      <div id="product-management" style="display: none;">
+        <div class="add-product-section">
+          <h3>โพสต์สินค้าใหม่</h3>
+          <form id="add-product-form" onsubmit="handleAddProduct(event)">
+            <div class="form-group">
+              <label for="new-product-name">ชื่อสินค้า</label>
+              <input type="text" id="new-product-name" placeholder="เช่น มะยมชิด" required>
+            </div>
+            <div class="form-group">
+              <label for="new-product-slogan">สโลแกนสินค้า</label>
+              <input type="text" id="new-product-slogan" placeholder="เช่น สดจากสวนแท้ ๆ" required>
+            </div>
+            <div class="form-group">
+              <label for="new-product-category">หมวดหมู่</label>
+              <select id="new-product-category" required>
+                <option value="ผลไม้">ผลไม้</option>
+                <option value="อาหารแปรรูป">อาหารแปรรูป</option>
+                <option value="ของฝาก">ของฝาก</option>
+                <option value="สมุนไพร">สมุนไพร</option>
+                <option value="หัตถกรรม">หัตถกรรม</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="new-product-district">อำเภอ</label>
+              <select id="new-product-district" required>
+                <option value="เมืองนครนายก">เมืองนครนายก</option>
+                <option value="บ้านนา">บ้านนา</option>
+                <option value="องครักษ์">องครักษ์</option>
+                <option value="ปากพลี">ปากพลี</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="new-product-price">ราคา</label>
+              <input type="number" id="new-product-price" placeholder="฿" min="1" required>
+            </div>
+            <div class="form-group">
+              <label for="new-product-image">ลิงก์ภาพสินค้า</label>
+              <input type="text" id="new-product-image" placeholder="image.png หรือ URL" required>
+            </div>
+            <button type="submit" class="btn-add-product" id="add-product-submit">โพสต์สินค้า</button>
+            <button type="button" class="btn-cancel" id="cancel-edit-btn" onclick="cancelEditProduct()" style="display:none; margin-left: 12px;">ยกเลิกการแก้ไข</button>
+          </form>
+        </div>
+
+        <div class="pending-posts-section">
+          <h3>สินค้ารออนุมัติของคุณ</h3>
+          <div id="pending-posts-list" class="pending-posts-list"></div>
+        </div>
+
+        <div class="approved-posts-section">
+          <h3>สินค้าที่ได้รับการอนุมัติแล้ว</h3>
+          <div id="approved-posts-list" class="approved-posts-list"></div>
+        </div>
+
+        <div class="approved-posts-section">
+          <h3>สินค้าของคุณที่ได้รับการอนุมัติ</h3>
+          <div id="my-products-list" class="approved-posts-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="profile" class="page">
+      <div id="auth-section" class="auth-section">
+        <div id="signin-card" class="auth-card auth-card-large">
+          <form id="login-form" onsubmit="handleMemberLogin(event)">
+            <div class="form-group">
+              <label for="login-email">Email</label>
+              <input type="email" id="login-email" placeholder="you@example.com" required>
+            </div>
+            <div class="form-group">
+              <label for="login-password">Password</label>
+              <input type="password" id="login-password" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn-submit">Sign in</button>
+          </form>
+          <div class="auth-footer">
+            <a href="#">Forgot password?</a>
+            <span>Need an account? <button type="button" class="link-button" onclick="toggleAuthMode('register')">Sign up</button></span>
+          </div>
+        </div>
+
+        <div id="signup-card" class="auth-card auth-card-large" style="display: none;">
+          <form id="register-form" onsubmit="handleRegister(event)">
+            <div class="form-group">
+              <label for="register-name">Username</label>
+              <input type="text" id="register-name" placeholder="ชื่อผู้ใช้" required>
+            </div>
+            <div class="form-group">
+              <label for="register-email">Email</label>
+              <input type="email" id="register-email" placeholder="you@example.com" required>
+            </div>
+            <div class="form-group">
+              <label for="register-password">Password</label>
+              <input type="password" id="register-password" placeholder="••••••••" required>
+            </div>
+            <div class="form-group">
+              <label for="register-confirm-password">Confirm Password</label>
+              <input type="password" id="register-confirm-password" placeholder="••••••••" required>
+            </div>
+            <div class="form-group">
+              <label for="register-phone">Phone</label>
+              <input type="tel" id="register-phone" placeholder="เบอร์โทร 10 หลัก" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" required oninput="this.value = this.value.replace(/\D/g, '').slice(0, 10)">
+            </div>
+            <div class="form-group">
+              <label for="register-address">ที่อยู่</label>
+              <textarea id="register-address" placeholder="กรอกที่อยู่สำหรับจัดส่ง" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn-submit">Sign up</button>
+          </form>
+          <div class="auth-footer">
+            <span>Already have an account? <button type="button" class="link-button" onclick="toggleAuthMode('login')">Sign in</button></span>
+          </div>
+        </div>
+      </div>
+
+      <div id="profile-user" class="profile-user-card" style="display: none;">
+        <div class="profile-user-top">
+          <h3>ยินดีต้อนรับกลับ</h3>
+          <p id="profile-welcome-text">เข้าสู่ระบบสำเร็จ</p>
+        </div>
+        <div class="profile-user-info">
+          <p><strong>Name:</strong> <span id="profile-user-name">ผู้ใช้</span></p>
+          <p><strong>Email:</strong> <span id="profile-user-email">user@example.com</span></p>
+          <p><strong>Phone:</strong> <span id="profile-user-phone">-</span></p>
+          <p><strong>Address:</strong> <span id="profile-user-address">-</span></p>
+          <p><strong>Status:</strong> <span id="profile-user-role">สมาชิก</span></p>
+        </div>
+        <div class="profile-user-actions">
+          <button class="btn-submit" type="button" onclick="toggleProfileEdit()">แก้ไขโปรไฟล์</button>
+          <button class="btn-submit" type="button" onclick="logout()">Sign out</button>
+        </div>
+        <form id="profile-edit-form" class="auth-card" style="display:none; margin-top:20px; padding:20px;">
+          <h3>แก้ไขโปรไฟล์</h3>
+          <div class="form-group">
+            <label for="edit-name">Name</label>
+            <input type="text" id="edit-name" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-email">Email</label>
+            <input type="email" id="edit-email" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-phone">Phone</label>
+            <input type="tel" id="edit-phone" placeholder="เบอร์โทร 10 หลัก" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" required oninput="this.value = this.value.replace(/\D/g, '').slice(0, 10)">
+          </div>
+          <div class="form-group">
+            <label for="edit-address">Address</label>
+            <textarea id="edit-address" rows="3" placeholder="กรอกที่อยู่สำหรับจัดส่ง" required></textarea>
+          </div>
+          <div class="profile-user-actions" style="gap:10px;">
+            <button class="btn-submit" type="button" onclick="saveProfileEdit(event)">Save</button>
+            <button class="btn-cancel" type="button" onclick="cancelProfileEdit()">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <div id="admin-dashboard" style="display: none;">
+        <div id="admin-reports-container">
+          <!-- รายงานจะถูก render โดย JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <section id="map" class="page">
+      <div class="page-header">
+        <h2>🗺️ แผนที่จังหวัดนครนายก</h2>
+        <p>ดูแผนที่จังหวัดนครนายกเป็นภาพเดียวที่สามารถเปลี่ยนได้โดยแอดมิน</p>
+      </div>
+      
+      <div class="map-view-container">
+        <div class="map-display" id="map-display">
+          <!-- รูปแผนที่จะถูก render ที่นี่ -->
+        </div>
+
+        <div id="map-edit-controls" style="display: none;" class="map-edit-panel">
+          <h3>แก้ไขรูปแผนที่</h3>
+          <p class="map-edit-note">สำหรับแอดมิน: เลือกรูปภาพจากเครื่องของคุณแล้วกดบันทึก</p>
+          <div class="form-group">
+            <label>เลือกรูปภาพแผนที่:</label>
+            <input type="file" id="map-image-file" accept="image/*" onchange="previewMapImage(event)">
+          </div>
+          <div id="map-edit-preview" class="map-edit-preview">ไม่มีรูปตัวอย่าง</div>
+          <div class="map-edit-actions">
+            <button type="button" class="btn-submit btn-map-edit" onclick="saveMapData()">บันทึกภาพแผนที่</button>
+            <button type="button" class="btn-cancel" onclick="toggleMapEdit()">ยกเลิก</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px; text-align: center;">
+        <button id="map-edit-btn" class="btn-submit btn-map-edit" onclick="toggleMapEdit()" style="display: none;">✏️ แก้ไขรูปแผนที่</button>
+      </div>
+    </section>
+
+  <div class="modal" id="checkout-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>📋 ข้อมูลการจัดส่ง</h3>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="checkout-form">
+          <div class="form-group">
+            <label for="customer-name">ชื่อผู้รับ *</label>
+            <input type="text" id="customer-name" required>
+          </div>
+          <div class="form-group" id="checkout-phone-group">
+            <label for="customer-phone">เบอร์ติดต่อ *</label>
+            <input type="tel" id="customer-phone" placeholder="เบอร์โทร 10 หลัก" inputmode="numeric" pattern="[0-9]{10}" minlength="10" maxlength="10" required oninput="this.value = this.value.replace(/\D/g, '').slice(0, 10)">
+          </div>
+          <div class="form-group" id="checkout-address-group">
+            <label for="customer-address">ที่อยู่จัดส่ง *</label>
+            <textarea id="customer-address" rows="3" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>วิธีการชำระเงิน *</label>
+            <div class="payment-options">
+              <label class="payment-option">
+                <input type="radio" name="payment-method" value="qr" required>
+                <span>QR Code</span>
+              </label>
+              <label class="payment-option">                <input type="radio" name="payment-method" value="card" required>
+                <span>บัตรเครดิต/เดบิต</span>
+              </label>
+              <label class="payment-option">                <input type="radio" name="payment-method" value="cod" required>
+                <span>เก็บเงินปลายทาง</span>
+              </label>
+            </div>
+          </div>
+          <div class="payment-details" id="qr-details" style="display: none;">
+            <div class="qr-info">
+              <h4>📱 สแกน QR Code เพื่อชำระเงิน</h4>
+              <div class="qr-placeholder">
+                <img src="คิวอา.jpg" alt="QR Code" class="qr-code-img" onerror="this.style.display='none'; document.getElementById('qr-fallback').style.display='flex';">
+                <div class="qr-code" id="qr-fallback" style="display:none;">QR</div>
+                <p>สแกนเพื่อชำระเงินผ่านแอปธนาคาร</p>
+              </div>
+              <div class="account-info">
+                <p><strong>ชื่อบัญชี:</strong> ปนัดดา</p>
+                <p><strong>เลขที่บัญชี:</strong> 123-456-7890</p>
+                <p><strong>ธนาคาร:</strong> ธนาคารกรุงไทย</p>
+              </div>
+            </div>
+          </div>
+          <div class="payment-details" id="card-details" style="display: none;">
+            <div class="card-info">
+              <h4>💳 ข้อมูลบัตรเครดิต/เดบิต</h4>
+              <div class="card-form">
+                <div class="form-row">
+                  <div class="form-group-half">
+                    <label for="card-number">หมายเลขบัตร *</label>
+                    <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19">
+                  </div>
+                  <div class="form-group-half">
+                    <label for="card-name">ชื่อผู้ถือบัตร *</label>
+                    <input type="text" id="card-name" placeholder="ชื่อบนบัตร">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group-half">
+                    <label for="card-expiry">วันหมดอายุ *</label>
+                    <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5">
+                  </div>
+                  <div class="form-group-half">
+                    <label for="card-cvv">CVV *</label>
+                    <input type="text" id="card-cvv" placeholder="123" maxlength="4">
+                  </div>
+                </div>
+              </div>
+              <div class="card-security">
+                <p>🔒 ข้อมูลบัตรของคุณจะถูกเข้ารหัสและปลอดภัย</p>
+              </div>
+            </div>
+          </div>
+          <div class="payment-details" id="cod-details" style="display: none;">
+            <div class="cod-info">
+              <p>💰 ชำระเงินเมื่อได้รับสินค้า</p>
+              <p>ผู้จัดส่งจะติดต่อคุณก่อนนำส่ง</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="customer-note">หมายเหตุ (ไม่บังคับ)</label>
+            <textarea id="customer-note" rows="2" placeholder="เช่น ถึงก่อน 10:00 น., ไม่ใส่ผัก, เป็นต้น"></textarea>
+          </div>
+          <div class="checkout-summary">
+            <div class="summary-item">
+              <span>จำนวนสินค้า:</span>
+              <span id="modal-item-count">0</span>
+            </div>
+            <div class="summary-item total">
+              <span>ยอดรวม:</span>
+              <span id="modal-total">฿0</span>
+            </div>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn-cancel" onclick="closeModal()">ยกเลิก</button>
+            <button type="submit" class="btn-confirm">💳 ชำระเงิน</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="review-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="review-modal-title">รีวิวสินค้า</h3>
+        <button class="modal-close" onclick="closeReviewModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="review-summary" class="review-summary"></div>
+        <div id="review-order-items" class="review-order-items" style="display: none;"></div>
+        <div class="review-selected-product">สินค้าที่เลือก: <strong id="review-selected-product"></strong></div>
+        <div id="review-form-section">
+          <form id="review-form" class="review-form">
+            <input type="hidden" id="review-product-name" value="">
+            <div class="form-group">
+              <label for="review-rating">คะแนน *</label>
+              <select id="review-rating" required>
+              <option value="5">5 ดาว</option>
+              <option value="4">4 ดาว</option>
+              <option value="3">3 ดาว</option>
+              <option value="2">2 ดาว</option>
+              <option value="1">1 ดาว</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="review-comment">ข้อความรีวิว *</label>
+            <textarea id="review-comment" rows="4" required></textarea>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn-cancel" onclick="closeReviewModal()">ยกเลิก</button>
+            <button type="submit" class="btn-confirm">ส่งรีวิว</button>
+          </div>
+        </form>
+        </div>
+        <div id="review-list" class="review-list"></div>
+      </div>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script src="javascript.js"></script>
+</body>
+</html>
